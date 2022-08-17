@@ -3,7 +3,7 @@ require("dotenv").config();
 const morgan = require("morgan")
 const app = express();
 const AuthRouting = require('./routing/auth.routing')
-
+const connectDB = require('./db')
 
 
 // middlewares
@@ -15,6 +15,10 @@ app.use(morgan('short'))
 // routing
 
 app.use('/auth', AuthRouting)
+
+// database
+
+connectDB()
 
 // server
 
