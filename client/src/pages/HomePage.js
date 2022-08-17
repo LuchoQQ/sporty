@@ -1,3 +1,5 @@
+import HomeCard from "../components/HomeCard";
+
 const HomePage = () => {
   return (
     <>
@@ -30,7 +32,8 @@ const HomePage = () => {
           </Container>
         </Grid>
       </Grid> */}
-      <HomeCard />
+      <HomeCard direction={true}/>
+      <HomeCard direction={false}/>
     </>
   );
 };

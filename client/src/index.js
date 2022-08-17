@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import "@fontsource/poppins";
-import "@fontsource/arimo"
+import './index.css'
+import "@fontsource/poppins/900.css";
+import "@fontsource/arimo/600.css"
 
 const theme = extendTheme({ 
   fonts: {
