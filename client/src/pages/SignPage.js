@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
-import nike3 from "../assets/nike3.png";
+import nike3 from "../assets/nike1.jpg";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()

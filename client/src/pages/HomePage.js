@@ -32,8 +32,9 @@ const HomePage = () => {
           </Container>
         </Grid>
       </Grid> */}
-      <HomeCard direction={true}/>
-      <HomeCard direction={false}/>
+      <HomeCard direction={true} />
+      <HomeCard direction={false} />
+      <HomeCard direction={true} />
     </>
   );
 };

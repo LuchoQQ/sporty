@@ -4,12 +4,15 @@ import App from "./App";
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import './index.css'
 import "@fontsource/poppins/900.css";
-import "@fontsource/arimo/600.css"
+import "@fontsource/arimo/700.css"
 
 const theme = extendTheme({ 
   fonts: {
     primary: 'Arimo',
     secondary: 'Poppins'
+  },
+  colors: {
+    primary: '#802020'
   }
 })
 const root = ReactDOM.createRoot(document.getElementById("root"));

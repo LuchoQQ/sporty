@@ -37,7 +37,7 @@ const HomeCard = ({ direction }) => {
                   <Text
                     fontFamily={theme.fonts.secondary}
                     fontSize="6xl"
-                    color="#802020"
+                    color={theme.colors.primary}
                   >
                     DIFERRENCE
                   </Text>
@@ -52,7 +52,7 @@ const HomeCard = ({ direction }) => {
                   dolor consequat consequat aliquip aliquip. Elit consectetur
                   non culpa non dolor dolor ad dolor adipisicing magna.
                 </Text>
-                <Flex p="1rem" w="50%" justifyContent="center" bg="#000">
+                <Flex p="1rem" w="50%" justifyContent="center" bg="#000" rounded='15px' cursor='pointer'>
                   <Text fontSize="1.5rem" color="#dedede">
                     Ver más
                   </Text>
