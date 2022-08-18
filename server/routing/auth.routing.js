@@ -1,10 +1,24 @@
-const express = require('express')
+const express = require("express");
+const User = require("../model/User");
+const userValidationSchema = require("../utils/validations/userValidationSchema");
 
-const router = express.Router()
+const { createUser, authMe } = require("../controllers/auth.controllers");
+const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('hello world')
-})
+router.get("/me", authMe);
 
+router.post("/register", userValidationSchema, createUser);
 
-module.exports = router
+router.get("/user", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const deletedUser = await User.findByIdAndDelete(id);
+  res.json(deletedUser);
+});
+
+module.exports = router;

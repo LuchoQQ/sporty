@@ -1,12 +1,9 @@
-import { formAnatomy, formErrorAnatomy } from "@chakra-ui/anatomy";
 import {
   Grid,
-  Flex,
   FormControl,
   FormLabel,
   Input,
   Container,
-  FormErrorMessage,
   Box,
   Text,
   Button,
@@ -15,15 +12,16 @@ import {
 import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
 import nike3 from "../assets/nike1.jpg";
+import axios from 'axios'
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(4, "The name must have between 4 and 10 characters")
-    .max(10, "The name must have between 4 and 10 characters")
+  username: Yup.string()
+    .min(4, "The username must have between 4 and 10 characters")
+    .max(10, "The username must have between 4 and 10 characters")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(7, "The password must have at least 4 characters")
+    .min(7, "The password must have at least 7 characters")
     .required("Required"),
 });
 
@@ -33,11 +31,12 @@ const SignPage = () => {
       <Grid autoFlow="column" justifyContent="space-between">
         <Grid w="40vw" h="90vh">
           <Formik
-            initialValues={{ name: "", email: "", password: "" }}
+            initialValues={{ username: "", email: "", password: "" }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(true);
+              axios.post(`http://localhost:4000/auth/register`, values).then(res => console.log(res))
               console.log(values);
-              setSubmitting(false);
             }}
           >
             {({
@@ -61,15 +60,15 @@ const SignPage = () => {
                 <FormControl as="form" onSubmit={handleSubmit}>
                   <Grid h="90vh" alignContent="center" gap="2rem">
                     <Box>
-                      <FormLabel fontSize="2xl">Name</FormLabel>
+                      <FormLabel fontSize="2xl">Username</FormLabel>
                       <Input
                         type="text"
-                        name="name"
+                        name="username"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.name}
+                        value={values.username}
                       />
-                      <ErrorMessage name="name" component="div">
+                      <ErrorMessage name="username" component="div">
                         {(msg) => <Text color="red">{msg}</Text>}
                       </ErrorMessage>
                     </Box>
@@ -99,7 +98,7 @@ const SignPage = () => {
                         {(msg) => <Text color="red">{msg}</Text>}
                       </ErrorMessage>
                     </Box>
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" isLoading={isSubmitting}>
                       Submit
                     </Button>
                   </Grid>

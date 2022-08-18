@@ -4,13 +4,16 @@ const morgan = require("morgan")
 const app = express();
 const AuthRouting = require('./routing/auth.routing')
 const connectDB = require('./db')
-
+const cors = require('cors')
 
 // middlewares
+
+app.use(cors())
 
 app.use(express.json())
 
 app.use(morgan('short'))
+
 
 // routing
 
