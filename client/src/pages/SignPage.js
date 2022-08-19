@@ -8,6 +8,12 @@ import {
   Text,
   Button,
   Image,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Tab,
+  Flex,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,7 +27,9 @@ import nike3 from "../assets/nike1.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import API from "../api/API";
-
+import { useState } from "react";
+import { RegisterForm, LoginForm } from "../components/SignForm";
+import imagebg from '../assets/imagebg.jpg'
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .min(4, "The username must have between 4 and 10 characters")
@@ -34,167 +42,39 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignPage = () => {
+  const [login, setLogin] = useState(true);
   const user = useSelector(selectUserStatus);
   const dispatch = useDispatch();
-  console.log(user);
   const navigate = useNavigate();
   return (
     <>
-      <Grid autoFlow="column" justifyContent="space-between">
-        <Grid w="40vw" h="100vh">
-          <Formik
-            initialValues={{ username: "", email: "", password: "" }}
-            validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              setSubmitting(true);
-              API.Register(values).then((res) => {
-                if (res.status === 200) {
-                  window.localStorage.setItem("token", res.data.token);
-                  axios.get(
-                    `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
-                    {
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "token"
-                        )}`,
-                      },
-                    }
-                  );
-                  navigate("/");
-                  window.location.reload();
-                }
-              });
-            }}
-          >
-            {({
-              values,
+      <Grid
+        autoFlow="column"
+        justifyContent="space-between"
+        alignContent="center"
+        h="100vh"
+      >
+        <Flex alignSelf='center'>
+        <Tabs size='lg' variant='enclosed-colored' w='30vw' align='center'>
+          <TabList>
+            <Tab>Login</Tab>
+            <Tab>Register</Tab>
+          </TabList>
 
-              errors,
+          <TabPanels>
+            <TabPanel>
+              <LoginForm />
+            </TabPanel>
+            <TabPanel>
+              <RegisterForm />
+            </TabPanel>
+            <TabPanel>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+        </Flex>
+        <Image src={imagebg} w='60vw' h='100%' fit='cover'/>
 
-              touched,
-
-              handleChange,
-
-              handleBlur,
-
-              handleSubmit,
-
-              isSubmitting,
-
-              /* and other goodies */
-            }) => (
-              <Container>
-                <FormControl as="form" onSubmit={handleSubmit}>
-                  <Grid h="100vh" alignContent="center" gap="2rem">
-                    <Box>
-                      <FormLabel fontSize="2xl">Username</FormLabel>
-                      <Input
-                        type="text"
-                        name="username"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.username}
-                      />
-                      <ErrorMessage name="username" component="div">
-                        {(msg) => <Text color="red">{msg}</Text>}
-                      </ErrorMessage>
-                    </Box>
-                    <Box>
-                      <FormLabel fontSize="2xl">Email</FormLabel>
-                      <Input
-                        type="email"
-                        name="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(msg) => <Text color="red">{msg}</Text>}
-                      </ErrorMessage>
-                    </Box>
-                    <Box>
-                      <FormLabel fontSize="2xl">Password</FormLabel>
-                      <Input
-                        type="password"
-                        name="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                      />
-                      <ErrorMessage name="password" component="div">
-                        {(msg) => <Text color="red">{msg}</Text>}
-                      </ErrorMessage>
-                    </Box>
-                    <Button type="submit" isLoading={isSubmitting}>
-                      Submit
-                    </Button>
-                  </Grid>
-                </FormControl>
-              </Container>
-            )}
-          </Formik>
-        </Grid>
-        <Grid w="40vw" h="100vh">
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              setSubmitting(true);
-            }}
-          >
-            {({
-              values,
-
-              errors,
-
-              handleChange,
-
-              handleBlur,
-
-              handleSubmit,
-
-              isSubmitting,
-
-              /* and other goodies */
-            }) => (
-              <Container>
-                <FormControl as="form" onSubmit={handleSubmit}>
-                  <Grid h="100vh" alignContent="center" gap="2rem">
-                    <Box>
-                      <FormLabel fontSize="2xl">Email</FormLabel>
-                      <Input
-                        type="email"
-                        name="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(msg) => <Text color="red">{msg}</Text>}
-                      </ErrorMessage>
-                    </Box>
-                    <Box>
-                      <FormLabel fontSize="2xl">Password</FormLabel>
-                      <Input
-                        type="password"
-                        name="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                      />
-                      <ErrorMessage name="password" component="div">
-                        {(msg) => <Text color="red">{msg}</Text>}
-                      </ErrorMessage>
-                    </Box>
-                    <Button type="submit" isLoading={isSubmitting}>
-                      Submit
-                    </Button>
-                  </Grid>
-                </FormControl>
-              </Container>
-            )}
-          </Formik>
-        </Grid>
       </Grid>
     </>
   );

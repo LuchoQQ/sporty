@@ -10,8 +10,8 @@ const Navbar = () => {
     COLLECTION: "/collection",
     SHOP: "/shop",
   };
-
-  if (user.admin === true) {
+  console.log(user)
+  if (user.admin === true || user.admin === 1) {
     arr = {
       ...arr,
       BACKOFFICE: '/backoffice'

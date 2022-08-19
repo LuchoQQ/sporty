@@ -16,6 +16,26 @@ const API = {
         console.log(error)
     }
   },
+  Login: async (values) => {
+    try {
+      const data = await fetch.post('/auth/login', values)
+      return data
+    } catch (error) {
+      console.log(error) 
+    }
+  },
+  Auth: async (values) => {
+    try {
+      const data = await fetch.get('/auth/me', {
+        headers: {
+          Authorization: `Bearer ${values}`
+        }
+      })
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
 };
 
 export default API;
