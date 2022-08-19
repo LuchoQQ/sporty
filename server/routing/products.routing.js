@@ -1,41 +1,31 @@
 const router = require("express").Router();
-const Product = require("../model/Product");
-const Category = require("../model/Category");
+const {
+  getAllProducts,
+  createProduct,
+  createCategory,
+  getProductsByCategoryName,
+} = require("../controllers/products.controllers");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
+router.post("/image", upload.single("image"), (req, res) => {
+  console.log(req)
+  res.send("ok");
+});
 
 // get all products without filter
-router.get("/", async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
-});
+router.get("/", getAllProducts);
 
 // create product
-router.post("/", async (req, res) => {
-  const { name, image, categoryId, description, price, stock } = req.body;
-
-  const getCategoryIdByName = await Category.findOne({ name: categoryId });
-  const product = await Product.create({
-    name,
-    image,
-    categoryId: getCategoryIdByName._id,
-    description,
-    price,
-    stock,
-  });
-  return res.json(product);
-});
+router.post("/", createProduct);
 
 // get all categories
-router.get("/category", async (req, res) => {
-  return res.json(await Category.find());
-});
+router.get("/category", createCategory);
 
 // get products by category name
-router.get("/category/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/category/:id", getProductsByCategoryName);
 
-  const getCategoryIdByName = await Category.findOne({ name: id });
-
-  return res.json(await Product.find({ categoryId: getCategoryIdByName })); // returns products by category
-});
+// delete product by id
+router.delete("/:id");
 
 module.exports = router;

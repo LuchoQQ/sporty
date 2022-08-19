@@ -5,6 +5,8 @@ const app = express();
 const connectDB = require('./db')
 const cors = require('cors')
 
+
+
 const AuthRouting = require('./routing/auth.routing')
 const ProductRouting = require('./routing/products.routing')
 
