@@ -6,19 +6,31 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minLength: 4,
-      maxLength: 10,
     },
-    email: {
+    image: {
       type: String,
       required: true,
       trim: true,
     },
-    password: {
+    categoryId: {
+      ref: "category",
+      type: mongoose.Schema.Types.ObjectId
+    },
+    description: {
       type: String,
       required: true,
-      trim: true,
+      trim: true
     },
+    price: {
+      type: Number,
+      required: true,
+      trim: true
+    },
+    stock: {
+      type: Number,
+      required: true,
+      trim: true
+    }
   },
   {
     timestamps: true,

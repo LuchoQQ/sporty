@@ -2,9 +2,11 @@ const express = require("express");
 require("dotenv").config();
 const morgan = require("morgan")
 const app = express();
-const AuthRouting = require('./routing/auth.routing')
 const connectDB = require('./db')
 const cors = require('cors')
+
+const AuthRouting = require('./routing/auth.routing')
+const ProductRouting = require('./routing/products.routing')
 
 // middlewares
 
@@ -18,6 +20,7 @@ app.use(morgan('short'))
 // routing
 
 app.use('/auth', AuthRouting)
+app.use('/products', ProductRouting)
 
 // database
 
