@@ -5,12 +5,9 @@ import { BsCart } from "react-icons/bs";
 import Navbar from "./Navbar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { selectUserStatus } from "../redux/reducers/userSlice";
-import { useSelector } from "react-redux";
+
 
 const Header = () => {
-  const user = useSelector(selectUserStatus);
-  console.log(user)
   const [scroll, setScroll] = useState(0);
   const theme = useTheme();
   const onScroll = () => {

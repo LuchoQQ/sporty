@@ -62,7 +62,29 @@ const authMe = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { email, password } = req.body
+
+  const getUser = await User.findOne({ email: email })
+
+  const result = bcrypt.compareSync(password, getUser.password)
+
+  if (result) {
+    const token = await generateToken({
+      id: getUser._id
+    });
+    return res.json({
+      status: 'ok',
+      token
+    })
+  } else {
+    return res.json({ status: 'failed', message: 'bad autentication' })
+  }
+  res.json(result)
+}
+
 module.exports = {
   createUser,
   authMe,
+  loginUser
 };

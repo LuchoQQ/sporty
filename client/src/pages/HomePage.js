@@ -1,11 +1,8 @@
 import HomeCard from "../components/HomeCard";
-import { selectUserData } from '../redux/reducers/userSlice'
-import { useSelector } from "react-redux";
+
 import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 const HomePage = () => {
-  const user = useSelector(selectUserData)
-  console.log()
   return (
     <>
       {/* <Grid autoFlow="column" justifyContent="space-between" w="100vw">

@@ -20,6 +20,7 @@ import * as Yup from "yup";
 import nike3 from "../assets/nike1.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../api/API";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -40,40 +41,29 @@ const SignPage = () => {
   return (
     <>
       <Grid autoFlow="column" justifyContent="space-between">
-        <Grid w="40vw" h="90vh">
+        <Grid w="40vw" h="100vh">
           <Formik
             initialValues={{ username: "", email: "", password: "" }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              axios
-                .post(
-                  `${process.env.REACT_APP_SERVER_BASE_URL}/auth/register`,
-                  values
-                )
-                .then((res) => {
-                  if (res.status === 200) {
-                    window.localStorage.setItem("token", res.data.token);
-                    try {
-                      axios
-                        .get(
-                          `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
-                          {
-                            headers: {
-                              Authorization: `Bearer ${localStorage.getItem(
-                                "token"
-                              )}`,
-                            },
-                          }
-                        )
-                        .then((res) => {
-                          //console.log(res);
-                        });
-                    } catch (error) {}
-                    navigate("/");
-                    window.location.reload()
-                  }
-                });
+              API.Register(values).then((res) => {
+                if (res.status === 200) {
+                  window.localStorage.setItem("token", res.data.token);
+                  axios.get(
+                    `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
+                    {
+                      headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                          "token"
+                        )}`,
+                      },
+                    }
+                  );
+                  navigate("/");
+                  window.location.reload();
+                }
+              });
             }}
           >
             {({
@@ -95,7 +85,7 @@ const SignPage = () => {
             }) => (
               <Container>
                 <FormControl as="form" onSubmit={handleSubmit}>
-                  <Grid h="90vh" alignContent="center" gap="2rem">
+                  <Grid h="100vh" alignContent="center" gap="2rem">
                     <Box>
                       <FormLabel fontSize="2xl">Username</FormLabel>
                       <Input
@@ -144,14 +134,66 @@ const SignPage = () => {
             )}
           </Formik>
         </Grid>
-        <Grid
-          w="40vw"
-          h="90vh"
-          justifyContent="center"
-          alignContent="center"
-          transform="rotate(90deg)"
-        >
-          <Image src={nike3} fit="none" w="50vw" h="90vh" />
+        <Grid w="40vw" h="100vh">
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(true);
+            }}
+          >
+            {({
+              values,
+
+              errors,
+
+              handleChange,
+
+              handleBlur,
+
+              handleSubmit,
+
+              isSubmitting,
+
+              /* and other goodies */
+            }) => (
+              <Container>
+                <FormControl as="form" onSubmit={handleSubmit}>
+                  <Grid h="100vh" alignContent="center" gap="2rem">
+                    <Box>
+                      <FormLabel fontSize="2xl">Email</FormLabel>
+                      <Input
+                        type="email"
+                        name="email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.email}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(msg) => <Text color="red">{msg}</Text>}
+                      </ErrorMessage>
+                    </Box>
+                    <Box>
+                      <FormLabel fontSize="2xl">Password</FormLabel>
+                      <Input
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.password}
+                      />
+                      <ErrorMessage name="password" component="div">
+                        {(msg) => <Text color="red">{msg}</Text>}
+                      </ErrorMessage>
+                    </Box>
+                    <Button type="submit" isLoading={isSubmitting}>
+                      Submit
+                    </Button>
+                  </Grid>
+                </FormControl>
+              </Container>
+            )}
+          </Formik>
         </Grid>
       </Grid>
     </>
