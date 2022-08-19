@@ -10,7 +10,6 @@ const Navbar = () => {
     COLLECTION: "/collection",
     SHOP: "/shop",
   };
-  console.log(user)
   if (user.admin === true || user.admin === 1) {
     arr = {
       ...arr,
