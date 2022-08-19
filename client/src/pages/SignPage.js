@@ -9,10 +9,17 @@ import {
   Button,
   Image,
 } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  logout,
+  setUserData,
+  selectUserStatus,
+} from "../redux/reducers/userSlice";
 import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
 import nike3 from "../assets/nike1.jpg";
-import axios from 'axios'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -26,6 +33,10 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignPage = () => {
+  const user = useSelector(selectUserStatus);
+  const dispatch = useDispatch();
+  console.log(user);
+  const navigate = useNavigate();
   return (
     <>
       <Grid autoFlow="column" justifyContent="space-between">
@@ -35,8 +46,34 @@ const SignPage = () => {
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              axios.post(`http://localhost:4000/auth/register`, values).then(res => console.log(res))
-              console.log(values);
+              axios
+                .post(
+                  `${process.env.REACT_APP_SERVER_BASE_URL}/auth/register`,
+                  values
+                )
+                .then((res) => {
+                  if (res.status === 200) {
+                    window.localStorage.setItem("token", res.data.token);
+                    try {
+                      axios
+                        .get(
+                          `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
+                          {
+                            headers: {
+                              Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                              )}`,
+                            },
+                          }
+                        )
+                        .then((res) => {
+                          //console.log(res);
+                        });
+                    } catch (error) {}
+                    navigate("/");
+                    window.location.reload()
+                  }
+                });
             }}
           >
             {({

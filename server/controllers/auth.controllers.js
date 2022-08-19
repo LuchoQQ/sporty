@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
       password: bcrypt.hashSync(password, 10),
       admin: false,
     });
-    const token = generateToken({
+    const token = await generateToken({
       id: user._id,
     });
     return res.json({
@@ -51,11 +51,11 @@ const authMe = async (req, res) => {
   if (!decoded) return res.status(401).json({ msg: "Invalid token" });
 
   try {
-    const { username, email, id } = await User.findById(decoded.id);
+    const { username, email, admin } = await User.findById(decoded.id);
     return res.json({
       username,
       email,
-      id,
+      admin
     });
   } catch (error) {
     return res.json(error);

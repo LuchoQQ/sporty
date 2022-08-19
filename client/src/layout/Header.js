@@ -5,28 +5,32 @@ import { BsCart } from "react-icons/bs";
 import Navbar from "./Navbar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { selectUserStatus } from "../redux/reducers/userSlice";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const [scroll, setScroll] = useState(0)
+  const user = useSelector(selectUserStatus);
+  console.log(user)
+  const [scroll, setScroll] = useState(0);
   const theme = useTheme();
   const onScroll = () => {
-    setScroll(window.scrollY)
+    setScroll(window.scrollY);
   };
   window.addEventListener("scroll", onScroll);
-  
+
   return (
     <>
       <Flex
-        position='fixed'
+        position="fixed"
         h="10vh"
         w="100vw"
-        bg={scroll > 0 ? '#dedede' : '#fff'}
+        bg={scroll > 0 ? "#dedede" : "#fff"}
         justifyContent="space-between"
         alignItems="center"
         fontFamily={theme.fonts.primary}
         fontSize="1.5rem"
         px="2rem"
-        transition='all 1s ease'
+        transition="all 1s ease"
       >
         <Flex fontSize="2.5rem">
           <Icon as={GiRunningShoe} alignSelf="center" />

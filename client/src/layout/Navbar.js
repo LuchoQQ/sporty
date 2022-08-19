@@ -1,12 +1,23 @@
 import NavItem from "../components/NavItem";
-
+import { selectUserData } from "../redux/reducers/userSlice";
+import { useSelector } from "react-redux";
 const Navbar = () => {
-  const arr = {
+  const user = useSelector(selectUserData);
+
+
+  let arr = {
     HOME: "/",
     COLLECTION: "/collection",
     SHOP: "/shop",
   };
 
+  if (user.admin === true) {
+    arr = {
+      ...arr,
+      BACKOFFICE: '/backoffice'
+    }
+  }
+  //user === true ? arr = {...arr, BACKOFFICE: '/backoffice'} : null
   return (
     <>
       {Object.entries(arr).map((item, index) => {
