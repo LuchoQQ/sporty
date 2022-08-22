@@ -35,6 +35,14 @@ const API = {
     } catch (error) {
       console.log(error)
     }
+  },
+  DeleteProduct: async (id) => {
+    try {
+      const remove = await fetch.delete(`/products/${id}`)
+      return remove
+    } catch (error) {
+      return error
+    }
   }
 };
 

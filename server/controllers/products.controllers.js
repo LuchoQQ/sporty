@@ -1,30 +1,38 @@
 const Category = require("../model/Category");
 const Product = require("../model/Product");
-const { uploadFile } = require("../s3");
+const { uploadFile, deleteFile } = require("../s3");
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
 
 const getAllProducts = async (req, res) => {
-  const products = await Product.find().select({categoryId: 0, updatedAt: 0, createdAt: 0, __v: 0})
-  res.json(products);
+  const products = await Product.find().select({
+    categoryId: 0,
+    updatedAt: 0,
+    createdAt: 0,
+    __v: 0,
+  });
+  if (products.length === 0) return res.status(204).json({ message: 'No products' })
+  return res.json(products);
 };
 
 const createProduct = async (req, res) => {
-    const { name, category, description, price, stock} = req.body;
-    const file = req.file;
-    const imageUploaded = await uploadFile(file);
-
-    const getCategoryIdByName = await Category.findOne({ name: category });
-    const product = await Product.create({
-      name,
-      category,
-      image: imageUploaded.key,
-      categoryId: getCategoryIdByName._id,
-      description,
-      price,
-      stock,
-    });
-    return res.json(product);
-  };
-
+  const { name, category, description, price, stock } = req.body;
+  const file = req.file;
+  const imageUploaded = await uploadFile(file);
+  const getCategoryIdByName = await Category.findOne({ name: category });
+  const product = await Product.create({
+    name,
+    category,
+    image: imageUploaded.key,
+    categoryId: getCategoryIdByName._id,
+    description,
+    price,
+    stock,
+  });
+  await unlinkFile(file.path);
+  return res.json(product);
+};
 
 const createCategory = async (req, res) => {
   return res.json(await Category.find());
@@ -40,8 +48,15 @@ const getProductsByCategoryName = async (req, res) => {
 
 const deleteProductById = async (req, res) => {
   const { id } = req.params;
-  const deleteProduct = await Product.findByIdAndDelete(id);
-  res.json(deleteProduct);
+  try {
+    const deleteProduct = await Product.findByIdAndDelete(id);
+    const result = await deleteFile(deleteProduct.image);
+    console.log(result)
+    return res.json(deleteProduct);
+  } catch (error) {
+    console.log(error)
+    res.json(error);
+  }
 };
 module.exports = {
   getAllProducts,

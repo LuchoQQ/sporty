@@ -28,6 +28,19 @@ function uploadFile(file) {
 }
 
 exports.uploadFile = uploadFile;
+// delete a file from s3
+
+async function deleteFile(url) {
+  let { pathname } = new URL(url, process.env.MONGODB_SERVER_URL);
+  pathname = pathname.substring(1);
+  const params = {
+    Bucket:bucketName,
+    Key: pathname,
+  };
+  return await s3.deleteObject(params).promise();
+}
+
+exports.deleteFile = deleteFile;
 
 // downloads a file from s3
 function getFileStream(fileKey) {
@@ -41,3 +54,4 @@ function getFileStream(fileKey) {
 
 exports.getFileStream = getFileStream;
 
+// remove a file from s3
