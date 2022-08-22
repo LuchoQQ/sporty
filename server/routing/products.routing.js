@@ -4,13 +4,14 @@ const {
   createProduct,
   createCategory,
   getProductsByCategoryName,
+  deleteProductById
 } = require("../controllers/products.controllers");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
 router.post("/image", upload.single("image"), (req, res) => {
-  console.log(req)
-  res.send("ok");
+  const file = req.file
+  const info = req.body.description
 });
 
 // get all products without filter
@@ -26,6 +27,6 @@ router.get("/category", createCategory);
 router.get("/category/:id", getProductsByCategoryName);
 
 // delete product by id
-router.delete("/:id");
+router.delete("/:id", deleteProductById);
 
 module.exports = router;

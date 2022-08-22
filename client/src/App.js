@@ -11,6 +11,9 @@ import {
 } from "./redux/reducers/userSlice";
 import AuthorizationService from "./services/auth/AuthorizationService";
 import BackofficePage from "./pages/BackofficePage";
+import BackofficeUsers from "./pages/BackofficeUsers";
+import BackofficeProducts from "./pages/BackofficeProducts";
+import BackofficeCategories from "./pages/BackofficeCategories";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +38,11 @@ function App() {
           <Route path="/collection" element={<h1>Collection</h1>} />
           <Route path="/shop" element={<h1>Hola</h1>} />
           <Route path="/sign" element={<SignPage />} />
+          {/* BACKOFFICE PAGES */}
           <Route path="/backoffice" element={<BackofficePage />} />
+          <Route path="/backoffice/products" element={<BackofficeProducts />} />
+          <Route path="/backoffice/users" element={<BackofficeUsers />} />
+          <Route path="/backoffice/categories" element={<BackofficeCategories />} />
           <Route path="*" element={<h1>NOT FOUND 404</h1>} />
         </Routes>
       </Router>
