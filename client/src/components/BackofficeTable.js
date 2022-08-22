@@ -8,9 +8,13 @@ import {
   Th,
   Tbody,
   Td,
-  Button,
+  Link,
+  Icon,
+  Flex,
 } from "@chakra-ui/react";
-const UsersTable = ({ data }) => {
+import { AiFillFileImage, AiOutlineEdit } from "react-icons/ai";
+import { BsFillTrashFill } from "react-icons/bs";
+const BackofficeTable = ({ data, removeItem }) => {
   const keys = Object.keys(data.slice(0, 1)[0]);
   return (
     <>
@@ -20,7 +24,6 @@ const UsersTable = ({ data }) => {
           <Thead>
             <Tr>
               {keys.map((key, index) => {
-                console.log(key);
                 return <Th>{key}</Th>;
               })}
               <Th>Actions</Th>
@@ -31,12 +34,29 @@ const UsersTable = ({ data }) => {
               return (
                 <Tr key={index}>
                   {keys.map((key, index) => {
-                    return <Td>{user[key]}</Td>;
+                    return (
+                      <>
+                        {key === "image" ? (
+                          <Td>
+                            <Link
+                              href={`${process.env.REACT_APP_SERVER_BASE_URL}/products/image/${user.image}`}
+                              isExternal
+                            >
+                              <Icon as={AiFillFileImage} w="40px" h="40px" />
+                            </Link>
+                          </Td>
+                        ) : (
+                          <Td>{user[key]}</Td>
+                        )}
+                      </>
+                    );
                   })}
 
                   <Td>
-                    <Button>Eliminar</Button>
-                    <Button>Editar</Button>
+                    <Flex gap="1rem">
+                      <Icon as={AiOutlineEdit} h="40px" w="40px" />
+                      <Icon as={BsFillTrashFill} h="40px" w="40px" onClick={() => removeItem(user._id)}/>
+                    </Flex>
                   </Td>
                 </Tr>
               );
@@ -48,4 +68,4 @@ const UsersTable = ({ data }) => {
   );
 };
 
-export default UsersTable;
+export default BackofficeTable;

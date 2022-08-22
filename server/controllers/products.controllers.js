@@ -1,5 +1,6 @@
 const Category = require("../model/Category");
 const Product = require("../model/Product");
+const { uploadFile } = require("../s3");
 
 const getAllProducts = async (req, res) => {
   const products = await Product.find().select({categoryId: 0, updatedAt: 0, createdAt: 0, __v: 0})
@@ -7,13 +8,15 @@ const getAllProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-    const { name, image, category, description, price, stock} = req.body;
+    const { name, category, description, price, stock} = req.body;
+    const file = req.file;
+    const imageUploaded = await uploadFile(file);
 
     const getCategoryIdByName = await Category.findOne({ name: category });
     const product = await Product.create({
       name,
       category,
-      image,
+      image: imageUploaded.key,
       categoryId: getCategoryIdByName._id,
       description,
       price,
