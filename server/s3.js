@@ -36,11 +36,8 @@ exports.generateUploadURL = generateUploadURL;
 
 
 // uploads a file to s3
-
 function uploadFile(file) {
- // console.log(file)
   const fileStream = fs.createReadStream(file.path);
-  //console.log(fileStream)
 
   const uploadParams = {
     Bucket: bucketName,
@@ -52,8 +49,8 @@ function uploadFile(file) {
 }
 
 exports.uploadFile = uploadFile;
-// delete a file from s3
 
+// delete a file from s3
 async function deleteFile(url) {
   let { pathname } = new URL(url, process.env.MONGODB_SERVER_URL);
   pathname = pathname.substring(1);
@@ -78,4 +75,3 @@ function getFileStream(fileKey) {
 
 exports.getFileStream = getFileStream;
 
-// remove a file from s3

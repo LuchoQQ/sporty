@@ -16,7 +16,7 @@ const BackofficeLayout = ({
       
 
       {editing === true ? (
-        <EditingLayout />
+        <EditingLayout editItem={editItem}/>
       ) : error === false ? (
         loading === false ? (
           <BackofficeTable

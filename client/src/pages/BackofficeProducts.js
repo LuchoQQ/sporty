@@ -1,22 +1,12 @@
 import {
   Box,
-  Button,
-  Flex,
-  Grid,
-  Icon,
-  Image,
-  Text,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import API from "../api/API";
-import BackofficeTable from "../components/BackofficeTable";
-import { TbFaceIdError } from "react-icons/tb";
 import BackofficeLayout from "../layout/BackofficeLayout";
 const BackofficeProducts = () => {
-
-  
   // backoffice props
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -24,20 +14,15 @@ const BackofficeProducts = () => {
   const [data, setData] = useState();
 
   const removeItem = (item) => {
-    let index = 0
+    let index = 0;
     data.map((element) => {
-      index++
-      if(element._id === item) {
-        const actualData = data.slice()
-        
-        const newData = actualData.splice(index- 1, 1)
-        
-        console.log(actualData)        
-
-        
-        setData(actualData)
+      index++;
+      if (element._id === item) {
+        const actualData = data.slice();
+        const newData = actualData.splice(index - 1, 1);
+        setData(actualData);
       }
-    })
+    });
     API.DeleteProduct(item).then((res) => {
       if (res.status === 200) {
         toast({
@@ -47,16 +32,12 @@ const BackofficeProducts = () => {
           isClosable: true,
         });
       }
-      
     });
   };
-  
-  const editItem = (item) => {
-    console.log(item)
-    setEditing(true)
-  }
 
-  
+  const editItem = (item) => {
+    setEditing(!editing);
+  };
 
   //fetch products
   useEffect(() => {
@@ -79,8 +60,14 @@ const BackofficeProducts = () => {
   return (
     <>
       <Box h="15vh" />
-      <BackofficeLayout editing={editing} data={data} loading={loading} error={error} removeItem={removeItem} editItem={editItem}/>
-      
+      <BackofficeLayout
+        editing={editing}
+        data={data}
+        loading={loading}
+        error={error}
+        removeItem={removeItem}
+        editItem={editItem}
+      />
     </>
   );
 };

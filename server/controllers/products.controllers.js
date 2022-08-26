@@ -12,18 +12,20 @@ const getAllProducts = async (req, res) => {
     createdAt: 0,
     __v: 0,
   });
-  if (products.length === 0) return res.status(204).json({ message: 'No products' })
+  if (products.length === 0)
+    return res.status(204).json({ message: "No products" });
   return res.json(products);
 };
 
 const createProduct = async (req, res) => {
   const { name, category, description, price, stock, image } = req.body;
   const file = req.file;
+  if (!file) return res.status(400).send({ msg: "Not image provided" })
+
+
   const imageUploaded = await uploadFile(file);
-  //console.log(imageUploaded.key)
   const getCategoryIdByName = await Category.findOne({ name: category });
 
- 
   const product = await Product.create({
     name,
     category,
@@ -33,7 +35,7 @@ const createProduct = async (req, res) => {
     price,
     stock,
   });
-  await unlinkFile(file.path);
+  await unlinkFile(`./uploads/${imageUploaded.Key}`);
   return res.json(product);
 };
 
@@ -54,10 +56,10 @@ const deleteProductById = async (req, res) => {
   try {
     const deleteProduct = await Product.findByIdAndDelete(id);
     const result = await deleteFile(deleteProduct.image);
-    console.log(result)
+    console.log(result);
     return res.json(deleteProduct);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.json(error);
   }
 };
