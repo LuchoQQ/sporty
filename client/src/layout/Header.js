@@ -27,6 +27,7 @@ const Header = () => {
         fontFamily={theme.fonts.primary}
         fontSize="1.5rem"
         px="2rem"
+        zIndex={10000}
         transition="all 1s ease"
       >
         <Flex fontSize="2.5rem">

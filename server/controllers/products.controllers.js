@@ -17,14 +17,17 @@ const getAllProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  const { name, category, description, price, stock } = req.body;
+  const { name, category, description, price, stock, image } = req.body;
   const file = req.file;
   const imageUploaded = await uploadFile(file);
+  //console.log(imageUploaded.key)
   const getCategoryIdByName = await Category.findOne({ name: category });
+
+ 
   const product = await Product.create({
     name,
     category,
-    image: imageUploaded.key,
+    image: imageUploaded.Key,
     categoryId: getCategoryIdByName._id,
     description,
     price,

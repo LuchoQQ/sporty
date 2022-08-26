@@ -4,7 +4,7 @@ require("dotenv").config();
 const generateToken = (data) => {
     console.log(data)
   const token = jwt.sign(data, process.env.SECRET, {
-    expiresIn: 60 * 60 * 24,
+    expiresIn: 60 * 60 * 168,
   });
 
   return token;
