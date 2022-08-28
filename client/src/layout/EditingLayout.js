@@ -8,13 +8,15 @@ import {
   Box,
   FormLabel,
   useToast,
+  NumberInputField,
+  NumberInput,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ErrorMessage, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 
-const EditingLayout = ({editItem}) => {
+const EditingLayout = ({ editItem }) => {
   const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ const EditingLayout = ({editItem}) => {
               duration: 2000,
               isClosable: true,
             });
-            editItem()
+            editItem();
           }
         })
         .then((res) => console.log(res));
@@ -82,7 +84,7 @@ const EditingLayout = ({editItem}) => {
                   <FormControl as="form" onSubmit={handleSubmit}>
                     <Grid alignContent="center" gap="2rem">
                       <Box>
-                        <FormLabel fontSize="2xl">Name</FormLabel>
+                        <FormLabel fontSize="xl">Name</FormLabel>
                         <Input
                           type="text"
                           name="name"
@@ -95,7 +97,7 @@ const EditingLayout = ({editItem}) => {
                         </ErrorMessage>
                       </Box>
                       <Box>
-                        <FormLabel fontSize="2xl">Category</FormLabel>
+                        <FormLabel fontSize="xl">Category</FormLabel>
                         <Input
                           type="text"
                           name="category"
@@ -108,7 +110,7 @@ const EditingLayout = ({editItem}) => {
                         </ErrorMessage>
                       </Box>
                       <Box>
-                        <FormLabel fontSize="2xl">Description</FormLabel>
+                        <FormLabel fontSize="xl">Description</FormLabel>
                         <Input
                           type="text"
                           name="description"
@@ -121,20 +123,22 @@ const EditingLayout = ({editItem}) => {
                         </ErrorMessage>
                       </Box>
                       <Box>
-                        <FormLabel fontSize="2xl">Number</FormLabel>
-                        <Input
-                          type="number"
-                          name="price"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.password}
-                        />
+                        <FormLabel fontSize="xl">Number</FormLabel>
+                        <NumberInput>
+                          <NumberInputField
+                            precision={1} 
+                            name="price"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.password}
+                          />
+                        </NumberInput>
                         <ErrorMessage name="password" component="div">
                           {(msg) => <Text color="red">{msg}</Text>}
                         </ErrorMessage>
                       </Box>
                       <Box>
-                        <FormLabel fontSize="2xl">Stock</FormLabel>
+                        <FormLabel fontSize="xl">Stock</FormLabel>
                         <Input
                           type="number"
                           name="stock"
@@ -147,7 +151,7 @@ const EditingLayout = ({editItem}) => {
                         </ErrorMessage>
                       </Box>
                       <Box>
-                        <FormLabel fontSize="2xl">Image</FormLabel>
+                        <FormLabel fontSize="xl">Image</FormLabel>
                         <Input
                           type="file"
                           name="image"

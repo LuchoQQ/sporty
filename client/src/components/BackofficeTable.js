@@ -12,6 +12,7 @@ import {
   Icon,
   Flex,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import { AiFillFileImage, AiOutlineEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -19,7 +20,7 @@ const BackofficeTable = ({ data, removeItem, editItem }) => {
   const keys = Object.keys(data.slice(0, 1)[0]);
   return (
     <>
-      <Flex p="1rem">
+      <Flex p="1rem" onClick={() => editItem()}>
         <Button colorScheme="green">Crear Producto</Button>
       </Flex>
       <TableContainer>
@@ -50,7 +51,7 @@ const BackofficeTable = ({ data, removeItem, editItem }) => {
                             </Link>
                           </Td>
                         ) : (
-                          <Td>{item[key]}</Td>
+                          key === "description" ? <Td><Text w='500px'>{item[key]}</Text></Td>: <Td>{item[key]}</Td>
                         )}
                       </>
                     );

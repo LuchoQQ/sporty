@@ -2,7 +2,7 @@ import { Button, Grid, Icon, Text } from "@chakra-ui/react";
 import React from "react";
 import { TbFaceIdError } from "react-icons/tb";
 
-const ErrorLayout = () => {
+const ErrorLayout = ({editItem}) => {
   return (
     <>
       <Grid
@@ -14,7 +14,7 @@ const ErrorLayout = () => {
       >
         <Text fontSize="6xl">{`No products :/`}</Text>
         <Icon as={TbFaceIdError} justifySelf="center" h="70px" w="70px" />
-        <Button onClick={() => console.log('edit')}>Create a product!</Button>
+        <Button onClick={() => editItem()}>Create a product!</Button>
       </Grid>
     </>
   );
