@@ -1,20 +1,26 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Container,
   Divider,
   Grid,
   Text,
   Box,
-  HStack,
+  Radio,
+  RadioGroup,
+  Stack,
   VStack,
+  CheckboxGroup,
+  Checkbox,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
-const SidebarLayout = () => {
+const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
+  const [value, setValue] = React.useState("1");
+  const navigate = useNavigate();
+
+  const onChange = () => {
+    setCategories('xd')
+  }
   return (
     <>
       <Divider />
@@ -32,29 +38,88 @@ const SidebarLayout = () => {
             </Text>
             <Divider mb="1rem" />
             <Grid gap="1rem" mb="1rem">
-              <Text>Zapatillas</Text>
-              <Text>Botines</Text>
-              <Text>Remeras</Text>
+              <CheckboxGroup>
+                <Checkbox onChange={() => console.log('xd')}>
+                  <Text>Zapatillas</Text>
+                </Checkbox>
+                <Checkbox onClick={() => setCategories(["Botines", ...categories])}>
+                  <Text>Botines</Text>
+                </Checkbox>
+                <Checkbox onClick={() => setCategories(["Remeras", ...categories])}>
+                  <Text>Remeras</Text>
+                </Checkbox>
+              </CheckboxGroup>
             </Grid>
             <Text fontSize="xl" fontWeight="600">
               Company +
             </Text>
             <Divider mb="1rem" />
             <Grid gap="1rem" mb="1rem">
-              <Text>Nike</Text>
-              <Text>Adidas</Text>
-              <Text>Fila</Text>
-              <Text>Jaguar</Text>
-              <Text>Puma</Text>
+              <CheckboxGroup>
+                <Checkbox>
+                  <Text>Nike</Text>
+                </Checkbox>
+                <Checkbox>
+                  <Text>Adidas</Text>
+                </Checkbox>
+                <Checkbox>
+                  <Text>Fila</Text>
+                </Checkbox>
+                <Checkbox>
+                  <Text>Jaguar</Text>
+                </Checkbox>
+                <Text>Puma</Text>
+              </CheckboxGroup>
             </Grid>
             <Text fontSize="xl" fontWeight="600">
               Price +
             </Text>
             <Divider mb="1rem" />
             <Grid gap="1rem" mb="1rem">
-              <Text>0 - 99</Text>
-              <Text>100 - 199</Text>
-              <Text>200 - 299</Text>
+              <RadioGroup onChange={setValue} value={value}>
+                <Grid gap="1rem">
+                  <Radio value="1">
+                    <Text
+                      onClick={() => {
+                        setMin(0);
+                        setMax(999999999);
+                      }}
+                    >
+                      No Range
+                    </Text>
+                  </Radio>
+                  <Radio value="2">
+                    <Text
+                      onClick={() => {
+                        setMin(0);
+                        setMax(100);
+                      }}
+                    >
+                      0 - 99
+                    </Text>
+                  </Radio>
+                  <Radio value="3">
+                    <Text
+                      onClick={() => {
+                        setMin(100);
+                        setMax(200);
+                      }}
+                    >
+                      100 - 199
+                    </Text>
+                  </Radio>
+                  <Radio value="4">
+                    <Text
+                      onClick={() => {
+                        setMin(200);
+                        setMax(300);
+                      }}
+                    >
+                      200 - 299
+                    </Text>
+                  </Radio>
+                </Grid>
+              </RadioGroup>
             </Grid>
           </Box>
         </Container>

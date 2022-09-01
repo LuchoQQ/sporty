@@ -131,11 +131,16 @@ export const LoginForm = () => {
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(true);
-            API.Login(values).then((res) => {
-              localStorage.setItem("token", res.data.token);
-              navigate("/");
-              window.location.reload();
-            });
+            try {
+              API.Login(values).then((res) => {
+                console.log(res)
+                localStorage.setItem("token", res.data.token);
+                navigate("/");
+                window.location.reload();
+              });
+            } catch (error) {
+              console.log(error)
+            }
           }}
         >
           {({
