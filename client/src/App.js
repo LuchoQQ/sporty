@@ -15,9 +15,14 @@ import BackofficeUsers from "./pages/BackofficeUsers";
 import BackofficeProducts from "./pages/BackofficeProducts";
 import BackofficeCategories from "./pages/BackofficeCategories";
 import ShopPage from "./pages/ShopPage";
+import { selectProducts, setProducts } from "./redux/reducers/productsSlice";
+import axios from "axios";
 
 function App() {
   const dispatch = useDispatch();
+
+  const product = useSelector(selectProducts);
+
   var status = useSelector(selectUserStatus);
 
   useEffect(() => {
@@ -29,6 +34,17 @@ function App() {
       });
     }
   }, [status]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_SERVER_BASE_URL}/products`)
+        .then((res) => {
+          dispatch(setProducts(res.data));
+        });
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <>

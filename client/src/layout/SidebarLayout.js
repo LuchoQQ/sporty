@@ -13,14 +13,18 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectFilters,
+  setCategory,
+  setPrice,
+} from "../redux/reducers/productsSlice";
 
-const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
+const SidebarLayout = () => {
   const [value, setValue] = React.useState("1");
-  const navigate = useNavigate();
+  const filters = useSelector(selectFilters);
+  const dispatch = useDispatch();
 
-  const onChange = () => {
-    setCategories('xd')
-  }
   return (
     <>
       <Divider />
@@ -39,13 +43,43 @@ const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
             <Divider mb="1rem" />
             <Grid gap="1rem" mb="1rem">
               <CheckboxGroup>
-                <Checkbox onChange={() => console.log('xd')}>
+                <Checkbox
+                  onChange={() => {
+                    dispatch(
+                      setCategory({
+                        ...filters.categories,
+                        zapatilla:
+                          filters.categories.zapatilla === false ? true : false,
+                      })
+                    );
+                  }}
+                >
                   <Text>Zapatillas</Text>
                 </Checkbox>
-                <Checkbox onClick={() => setCategories(["Botines", ...categories])}>
+                <Checkbox
+                  onChange={() => {
+                    dispatch(
+                      setCategory({
+                        ...filters.categories,
+                        botin:
+                          filters.categories.botin === false ? true : false,
+                      })
+                    );
+                  }}
+                >
                   <Text>Botines</Text>
                 </Checkbox>
-                <Checkbox onClick={() => setCategories(["Remeras", ...categories])}>
+                <Checkbox
+                  onChange={() => {
+                    dispatch(
+                      setCategory({
+                        ...filters.categories,
+                        remera:
+                          filters.categories.remera === false ? true : false,
+                      })
+                    );
+                  }}
+                >
                   <Text>Remeras</Text>
                 </Checkbox>
               </CheckboxGroup>
@@ -81,8 +115,7 @@ const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
                   <Radio value="1">
                     <Text
                       onClick={() => {
-                        setMin(0);
-                        setMax(999999999);
+                        dispatch(setPrice({ min: 0, max: 9999999 }));
                       }}
                     >
                       No Range
@@ -91,8 +124,7 @@ const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
                   <Radio value="2">
                     <Text
                       onClick={() => {
-                        setMin(0);
-                        setMax(100);
+                        dispatch(setPrice({ min: 0, max: 100 }));
                       }}
                     >
                       0 - 99
@@ -101,8 +133,7 @@ const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
                   <Radio value="3">
                     <Text
                       onClick={() => {
-                        setMin(100);
-                        setMax(200);
+                        dispatch(setPrice({ min: 100, max: 200 }));
                       }}
                     >
                       100 - 199
@@ -111,8 +142,7 @@ const SidebarLayout = ({ setMin, setMax, setCategories, categories }) => {
                   <Radio value="4">
                     <Text
                       onClick={() => {
-                        setMin(200);
-                        setMax(300);
+                        dispatch(setPrice({ min: 200, max: 300 }));
                       }}
                     >
                       200 - 299

@@ -5,3 +5,11 @@ export function filterByPrice(product, min, max) {
     return false;
   }
 }
+
+export function filterByCategory(product, category) {
+  if ("category" in product === category) {
+    return true;
+  } else {
+    return false;
+  }
+}

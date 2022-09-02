@@ -1,12 +1,5 @@
 import {
   Grid,
-  FormControl,
-  FormLabel,
-  Input,
-  Container,
-  Box,
-  Text,
-  Button,
   Image,
   Tabs,
   TabList,
@@ -15,21 +8,10 @@ import {
   Tab,
   Flex,
 } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  logout,
-  setUserData,
-  selectUserStatus,
-} from "../redux/reducers/userSlice";
-import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
-import nike3 from "../assets/nike1.jpg";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import API from "../api/API";
-import { useState } from "react";
 import { RegisterForm, LoginForm } from "../components/SignForm";
 import imagebg from '../assets/imagebg.jpg'
+
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .min(4, "The username must have between 4 and 10 characters")
@@ -42,10 +24,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignPage = () => {
-  const [login, setLogin] = useState(true);
-  const user = useSelector(selectUserStatus);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   return (
     <>
       <Grid

@@ -133,13 +133,13 @@ export const LoginForm = () => {
             setSubmitting(true);
             try {
               API.Login(values).then((res) => {
-                console.log(res)
+                console.log(res);
                 localStorage.setItem("token", res.data.token);
                 navigate("/");
                 window.location.reload();
               });
             } catch (error) {
-              console.log(error)
+              console.log(error);
             }
           }}
         >

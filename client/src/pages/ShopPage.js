@@ -13,16 +13,14 @@ import React, { useEffect, useState } from "react";
 import DrawerLayout from "../layout/DrawerLayout";
 import SidebarLayout from "../layout/SidebarLayout";
 import ProductsLayout from "../layout/ProductsLayout";
-import { filterByPrice } from "../utils/filters/filter";
+import { useSelector } from "react-redux";
+import { selectFilters, selectProducts } from "../redux/reducers/productsSlice";
 const ShopPage = () => {
-  const [products, setProducts] = useState([]);
+  const products = useSelector(selectProducts);
+
   const [selected, setSelectedData] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(900000);
-
-  const [categories, setCategories] = useState();
 
   /*   const filter = {
     prices: {
@@ -38,7 +36,7 @@ const ShopPage = () => {
 
   } */
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const fetchProducts = async () => {
       await axios
         .get(`${process.env.REACT_APP_SERVER_BASE_URL}/products`)
@@ -46,26 +44,56 @@ const ShopPage = () => {
           const dataByPrice = res.data.filter((product) =>
             filterByPrice(product, min, max)
           );
+          console.log(dataByPrice)
 
-          setProducts(dataByPrice);
+          const filterByCategory = () => {
+            let nose = [];
+            const entries = Object.entries(categories);
+            const trues = entries.filter((item) => {
+              if (item[1] === true) {
+                return true;
+              } else {
+                return false;
+              }
+            });
+            trues.filter((category) => {
+              const filtered = dataByPrice.filter((product) => {
+                if (product.category === category[0]) {
+                  nose.push(product);
+                  return true;
+                } else {
+                  return false;
+                }
+              });
+            });
+            setProducts(nose);
+          };
+          filterByCategory();
+
+          const dataByCategory = res.data.filter((product) => {
+            if (product.category === 'zapatilla') {
+              return true
+            } else {
+              return false
+            }
+          })
+          console.log(dataByCategory)
+          setProducts(dataByCategory);
         });
     };
-    console.log(categories)
     fetchProducts();
-  }, [max]);
-
+  }, [min, max, categories]); */
+  //
   const theme = useTheme();
   return (
     <>
       <Box h="10vh" />
       <Grid autoFlow="column">
-        <SidebarLayout setMin={setMin} setMax={setMax} />
+        <SidebarLayout />
         <ProductsLayout
           products={products}
           onOpen={onOpen}
           setSelectedData={setSelectedData}
-          setCategories={setCategories}
-          categories={categories}
         />
       </Grid>
       <DrawerLayout
