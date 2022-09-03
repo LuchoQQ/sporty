@@ -43,29 +43,12 @@ function ProductsLayout({ products, onOpen, setSelectedData }) {
       }
     });
 
-    /* const res = filtered.filter((product) => {
-      console.log(product.indexOf(filt) >= 0)
-      //return filt.indexOf(product.category) >= 0
-    });
-    console.log(res) */
-    var res = filtered.filter(function (product) {
-      return filtersCategory.indexOf(product.category) >= 0; 
-    });
-
-    console.log(res)
-
-
-    /* activeCategories.filter((category) => {
-      const res = filtered.filter((product) => {
-        if (product.category === category[0]) {
-          return true;
-        } else {
-          return false;
-        }
+    if (filtersCategory.length >= 1) {
+      var res = filtered.filter(function (product) {
+        return filtersCategory.indexOf(product.category) >= 0;
       });
-
-      filtered = res
-    }); */
+      filtered = res;
+    }
   };
   filterByCategory();
 
