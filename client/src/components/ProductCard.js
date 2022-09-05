@@ -8,9 +8,10 @@ function ProductCard({ product, setSelectedData, onOpen }) {
     <>
       <Grid
         _hover={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
-        w="350px"
+        w={["200px","200px","200px","280px","270px", "330px", "350px"]}
         transition="all .3s ease"
         justifyContent="center"
+        justifySelf='center'
         role="group"
       >
         <Image

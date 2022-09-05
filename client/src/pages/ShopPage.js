@@ -20,70 +20,7 @@ const ShopPage = () => {
 
   const [selected, setSelectedData] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-
-  /*   const filter = {
-    prices: {
-      min: min,
-      max: max,
-    },
-    categories: ['zapatillas'],
-    model: []
-  }
-
-
-  if (categories.length !== 0) {
-
-  } */
-
-  /*  useEffect(() => {
-    const fetchProducts = async () => {
-      await axios
-        .get(`${process.env.REACT_APP_SERVER_BASE_URL}/products`)
-        .then((res) => {
-          const dataByPrice = res.data.filter((product) =>
-            filterByPrice(product, min, max)
-          );
-          console.log(dataByPrice)
-
-          const filterByCategory = () => {
-            let nose = [];
-            const entries = Object.entries(categories);
-            const trues = entries.filter((item) => {
-              if (item[1] === true) {
-                return true;
-              } else {
-                return false;
-              }
-            });
-            trues.filter((category) => {
-              const filtered = dataByPrice.filter((product) => {
-                if (product.category === category[0]) {
-                  nose.push(product);
-                  return true;
-                } else {
-                  return false;
-                }
-              });
-            });
-            setProducts(nose);
-          };
-          filterByCategory();
-
-          const dataByCategory = res.data.filter((product) => {
-            if (product.category === 'zapatilla') {
-              return true
-            } else {
-              return false
-            }
-          })
-          console.log(dataByCategory)
-          setProducts(dataByCategory);
-        });
-    };
-    fetchProducts();
-  }, [min, max, categories]); */
-  //
+  const [mobile, setMobile] = useState(false);
   const theme = useTheme();
   return (
     <>

@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
@@ -53,26 +53,29 @@ function ProductsLayout({ products, onOpen, setSelectedData }) {
   filterByCategory();
 
   return (
-    <Grid
-      w="85vw"
-      minH="100vh"
-      ml="15vw"
-      templateColumns="repeat(3, 350px)"
-      gap={10}
-      justifyContent="center"
-      py="5vh"
-    >
-      {filtered.map((product, index) => {
-        return (
-          <ProductCard
-            key={index}
-            product={product}
-            onOpen={onOpen}
-            setSelectedData={setSelectedData}
-          />
-        );
-      })}
-    </Grid>
+    <>
+
+      <Grid
+        w="85vw"
+        minH="100vh"
+        mt='5vh'
+        templateColumns="repeat(3, 350px)"
+        gap={10}
+        justifyContent="center"
+        py="5vh"
+      >
+        {filtered.map((product, index) => {
+          return (
+            <ProductCard
+              key={index}
+              product={product}
+              onOpen={onOpen}
+              setSelectedData={setSelectedData}
+            />
+          );
+        })}
+      </Grid>
+    </>
   );
 }
 

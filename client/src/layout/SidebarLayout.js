@@ -10,6 +10,7 @@ import {
   VStack,
   CheckboxGroup,
   Checkbox,
+  Flex,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -34,7 +35,10 @@ const SidebarLayout = () => {
         h="90vh"
         borderRight="1px solid #dedede"
         alignContent="center"
+        zIndex={200}
+        display='grid'
       >
+
         <Container>
           <Box>
             <Text fontSize="xl" fontWeight="600">

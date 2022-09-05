@@ -8,7 +8,7 @@ const NavItem = ({path, name}) => {
     return (
         <>
             <NavLink to={path}>
-                <Text color={location === path ? theme.colors.primary : "#404040"}>{name}</Text>
+                <Text color={location === path ? theme.colors.primary : "#404040"} fontSize={['1rem', '1rem', '1rem', '1rem', '1rem', '1.5rem']} textAlign='center'>{name}</Text>
             </NavLink>
         </>
     )
