@@ -33,7 +33,7 @@ const Header = () => {
       >
         <Flex fontSize={"2.5rem"}>
           <Icon as={GiRunningShoe} alignSelf="center" />
-          <Text fontFamily={theme.fonts.secondary}>SPORTY</Text>
+          <Text fontFamily={theme.fonts.secondary} fontSize={['3xl', '3xl', '3xl', '4xl', '4xl']}>SPORTY</Text>
         </Flex>
         <Flex gap="2rem" display={["none", "none", "flex", "flex"]}>
           <Navbar />
