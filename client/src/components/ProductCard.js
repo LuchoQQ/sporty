@@ -1,9 +1,11 @@
 import { Button, Flex, Grid, Image, Text, useTheme } from "@chakra-ui/react";
 import React from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from '../redux/reducers/cartSlice'
 function ProductCard({ product, setSelectedData, onOpen }) {
   const theme = useTheme();
 
+  const dispatch = useDispatch()
   return (
     <>
       <Grid
@@ -37,7 +39,9 @@ function ProductCard({ product, setSelectedData, onOpen }) {
             >
               Ver más
             </Button>
-            <Button>Agregar al carrito</Button>
+            <Button onClick={() => {
+              dispatch(addToCart(product))
+            }}>Agregar al carrito</Button>
           </Flex>
         </Grid>
       </Grid>

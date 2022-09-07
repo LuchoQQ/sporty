@@ -17,6 +17,7 @@ import BackofficeCategories from "./pages/BackofficeCategories";
 import ShopPage from "./pages/ShopPage";
 import { selectProducts, setProducts } from "./redux/reducers/productsSlice";
 import axios from "axios";
+import CartPage from "./pages/CartPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function App() {
           <Route path="/collection" element={<h1>Collection</h1>} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/sign" element={<SignPage />} />
+          <Route path='/cart' element={<CartPage />} />
           {/* BACKOFFICE PAGES */}
           <Route path="/backoffice" element={<BackofficePage />} />
           <Route path="/backoffice/products" element={<BackofficeProducts />} />

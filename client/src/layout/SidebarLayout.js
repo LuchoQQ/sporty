@@ -44,7 +44,7 @@ const SidebarLayout = () => {
         borderRight="1px solid #dedede"
         transition="all .3s ease"
         zIndex={200}
-        alignContent='start'
+        alignContent="start"
       >
         <Icon
           as={BsArrowReturnRight}
@@ -65,7 +65,7 @@ const SidebarLayout = () => {
               "0vw",
               "0vw",
             ]}
-            mt='5vh'
+            mt="5vh"
           >
             <Box>
               <Text

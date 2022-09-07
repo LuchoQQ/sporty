@@ -6,6 +6,8 @@ import { BsCart } from "react-icons/bs";
 import Navbar from "./Navbar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Header = () => {
   const [scroll, setScroll] = useState(0);
@@ -15,6 +17,8 @@ const Header = () => {
     setScroll(window.scrollY);
   };
   window.addEventListener("scroll", onScroll);
+
+  const navigate = useNavigate()
 
   return (
     <>
